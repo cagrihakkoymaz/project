@@ -1,8 +1,7 @@
 from classes.kisi import kisi
 from classes.saglik_raporu import saglik_raporu
 
-import datetime
-datetime.datetime.now()
+import time
 
 
 
@@ -12,6 +11,7 @@ class abone(kisi):  # uyelik turunu iptal ettim, bunun yerine status ekledim
         self.status = False  # veznedar saglik belgelerini kabul ettiginde bu degiskeni true yaparak aboneligi baslatir.
         self.saglik_raporlari = []
         self.son_abonelik_tarihi
+        self.abonelik_baslangic_tarihi
 
     def bilgileriGoster(self):
         kisi.bilgileriGoster(self)

@@ -14,8 +14,8 @@ class veznedar(kisi):
     def uyeKaydet(self,abone):
         if(len(abone.saglik_raporlari) != 0):
             abone.status = True
-            abonelik_baslangic_tarihi = time.time()
-            
+            abone.abonelik_baslangic_tarihi = time.time()
+        else:
             abone.status = False
     
 
