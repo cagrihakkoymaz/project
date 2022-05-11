@@ -1,12 +1,29 @@
+import time
 class alet(object) :
 
-    def __init__(self,alet_ismi, son_bakim_tarihi):
-        self.son_bakim_tarihi = son_bakim_tarihi
-        self.alet_ismi = alet_ismi
+    def __init__(self,isim, tarih, bakim_maliyeti, tamir_maliyeti):
+
+        self.isim = isim
+        self.son_bakim_tarihi = tarih
+        self.bakim_gerekli = False
+        self.tamir_gerekli = False
+
+        self.bakim_maliyeti = bakim_maliyeti
+        self.tamir_maliyeti = tamir_maliyeti
+
 
     def bilgileriGoster(self):
-        print("SAlet bilgileri gosteriliyor...")
-        print("Alet ismi: ",self.alet_ismi) 
-        print("son bakim tarihi: ",self.son_bakim_tarihi) 
+        print("Alet bilgileri gosteriliyor...")
+        print("Alet ismi: ",self.isim) 
+        print("son bakim tarihi: ", time.asctime( time.localtime(self.son_bakim_tarihi))) 
 
-        
+
+    def bakimGoster(self):
+        if(time.time() - self.son_bakim_tarihi > 5) : # 6 ay = 15 778 463 saniye
+            self.bakim_gerekli = True
+            
+    
+    def tamirGoster(self):
+        if(time.time() - self.son_bakim_tarihi > 90000000000 * 2) : # 12 ay = 2 * 15 778 463 saniye
+            self.tamir_gerekli = True
+

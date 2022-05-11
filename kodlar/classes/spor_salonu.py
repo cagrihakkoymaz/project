@@ -10,14 +10,20 @@ class spor_salonu(object) :
         self.uyeler = []
         self.koclar = []
         self.aletler = []
+        self.paketler =  []
+        self.bakim_gerekli_aletler = []
+        self.tamir_gerekli_aletler = []
 
     def bilgileriGoster(self):
         print("Spor Salonu bilgileri gosteriliyor...")
         print("Sahibi: ",self.sahibi) 
+        for i in self.paketler:
+            print("Paketler: ", i.tur)
+        for i in self.uyeler:
+            print("Uyeler: ", i.isim)
 
-    def uyeKaydet(self,isim,soyisim,uyelik_turu):  
-        yeni_abone = abone(isim,soyisim,uyelik_turu)
-        self.uyeler.append(yeni_abone)
+    def uyeKaydet(self,abone):  
+        self.uyeler.append(abone)
         # return yeni_abone
 
     def kisiselKocKaydet(self,isim,soyisim,uzmanlik_alani):

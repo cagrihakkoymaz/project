@@ -7,16 +7,16 @@ import datetime
 
 
 class abone(kisi):  # uyelik turunu iptal ettim, bunun yerine kart ekledim 
-    def __init__(self,isim,soyisim,paket,ay_sayisi,butce):
+    def __init__(self,isim,soyisim,butce):
         kisi.__init__(self,isim,soyisim)
         self.kart = False  # veznedar saglik belgelerini kabul ettiginde bu degiskeni true yaparak aboneligi baslatir.
         self.saglik_raporlari = []
         self.son_abonelik_tarihi = ""
         self.abonelik_baslangic_tarihi = ""
-        self.ay_sayisi = ay_sayisi
+        self.ay_sayisi = -1
         self.butce = butce
 
-        self.abonelik_paketi = paket
+        self.abonelik_paketi = None
 
     def bilgileriGoster(self):
         kisi.bilgileriGoster(self)
@@ -24,11 +24,13 @@ class abone(kisi):  # uyelik turunu iptal ettim, bunun yerine kart ekledim
         if(self.kart):
             print("Abonelik Turu: ", self.abonelik_paketi.tur)
             print("Abonelik Aktif")
-        else :
-            print("Abonelik Aktif Değil Lütfen Vezneden Kartinizi Alin")
 
-        for i in range(len(self.saglik_raporlari)):
-            print("saglik raporlari: ", self.saglik_raporlari[i].alinma_tarihi )
+            for i in range(len(self.saglik_raporlari)):
+                print("saglik raporlari: ", self.saglik_raporlari[i].alinma_tarihi )
+        else :
+            print("Abonelik tamamlanmamış Lütfen Vezneden Kartinizi Alin")
+
+
 
     def saglikRaporuEkle(self):
         alinma_tarihi = datetime.datetime.now()
@@ -37,5 +39,9 @@ class abone(kisi):  # uyelik turunu iptal ettim, bunun yerine kart ekledim
 
     def durumKontrolu(self):
         pass
+
+    # def __del__(self):
+    #     print("deleted")
+        
     
     
