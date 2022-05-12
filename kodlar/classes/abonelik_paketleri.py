@@ -7,6 +7,8 @@ class abonelik_paketleri(object) :
         self.fiyat = fiyat 
         self.gun_sayisi = gun_sayisi
         self.salonaEkle(salon)
+        print( self.tur,"paketi yaratildi")
+
 
     def bilgileriGoster(self):
         print("Abonelik paket bilgileri gösteriliyor...")

@@ -83,7 +83,7 @@ class veznedar(kisi):
                 print(len(salon.bakim_gerekli_aletler))
 
                 print(alet.isim," aletinin bakim talebi ilgili ekiplere otomatik olarak iletilmistir")
-                salon_yoneticisi.salon_kapital-=alet.bakim_maliyeti
+                salon.butce-=alet.bakim_maliyeti
                 salon.bakim_gerekli_aletler.remove(alet)
                 alet.son_bakim_tarihi=time.time()
                 alet.bakim_gerekli=False
@@ -94,7 +94,7 @@ class veznedar(kisi):
 
             if (alet.tamir_gerekli):
                 print(alet.isim," aletinin tamir talebi ilgili ekiplere otomatik olarak iletilmistir")
-                salon_yoneticisi.salon_kapital-=alet.tamir_maliyeti
+                salon.butce-=alet.tamir_maliyeti
                 salon.tamir_gerekli_aletler.remove(alet)
                 alet.son_bakim_tarihi=time.time()
                 alet.tamir_gerekli=False

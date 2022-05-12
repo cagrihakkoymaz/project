@@ -4,8 +4,8 @@ from classes.abone import abone
 
 
 class spor_salonu(object) :
-    def __init__(self,sahibi, butce):
-        self.sahibi = sahibi
+    def __init__(self,isim, butce):
+        self.isim = isim
         self.butce = butce
         self.uyeler = []
         self.koclar = []
@@ -13,10 +13,12 @@ class spor_salonu(object) :
         self.paketler =  []
         self.bakim_gerekli_aletler = []
         self.tamir_gerekli_aletler = []
+        print( self.isim,"Spor Salonu Kaydedildi")
+
 
     def bilgileriGoster(self):
         print("Spor Salonu bilgileri gosteriliyor...")
-        print("Sahibi: ",self.sahibi) 
+        print("Sahibi: ",self.isim) 
         for i in self.paketler:
             print("Paketler: ", i.tur)
         for i in self.uyeler:
