@@ -28,7 +28,11 @@ class veznedar(kisi):
                     print("Kayit Basarili")
                     
                 else :
-                    print("Butce Yetersiz")
+                    print("-------------------------------")
+
+                    print("|| Butce Yetersiz,  Kayit Basarisiz ||")
+                    print("-------------------------------")
+
                     del abone
 
         else:
@@ -59,34 +63,40 @@ class veznedar(kisi):
                 print("Uyelik islemi iptal edildi")
 
                 return -1, -1
-        
-        print("Gecerli Bir Paket Giriniz iptal için q'ya basiniz: ")
+        print("-----------------------------------------------------------------------------------------------------------")
+        print("||  !!!! Gecerli Bir Paket Giriniz iptal için q'ya basiniz, Gecerli Paketler Assagida Gosterilmektedir !!!  ||\n ")
+        print("-----------------------------------------------------------------------------------------------------------")
+
 
         self.paketSun(abone,salon)
 
         return -1 -1
     
-    def aletDurumSorgula(self, salon, alet,salon_yoneticisi):
-        alet.bakimGoster()
-        alet.tamirGoster()
-        if(alet.tamir_gerekli):
-            salon.tamir_gerekli_aletler.append(alet)
-        elif(alet.bakim_gerekli):
-            salon.bakim_gerekli_aletler.append(alet)
+    def aletDurumSorgula(self, salon):
 
-        if(len(salon.bakim_gerekli_aletler) != 0 or len(salon.tamir_gerekli_aletler) != 0):
-            print("tamiri ve bakimi gelen aletler")
-        else:
-            print("Bakim veya Tamir gerektiren alet yoktur")
+        for alet in salon.aletler:
+            alet.bakimGoster()
+            alet.tamirGoster()
+            if(alet.tamir_gerekli):
+                salon.tamir_gerekli_aletler.append(alet)
+            elif(alet.bakim_gerekli):
+                salon.bakim_gerekli_aletler.append(alet)
+
         for alet in salon.bakim_gerekli_aletler:
             if (alet.bakim_gerekli):
                 print(len(salon.bakim_gerekli_aletler))
 
                 print(alet.isim," aletinin bakim talebi ilgili ekiplere otomatik olarak iletilmistir")
-                salon.butce-=alet.bakim_maliyeti
-                salon.bakim_gerekli_aletler.remove(alet)
-                alet.son_bakim_tarihi=time.time()
-                alet.bakim_gerekli=False
+
+                if(salon.butce < alet.bakim_maliyeti) :
+                    print(alet.isim,"ALETI ICIN BUTCE YETERSIZ, BAKIM YAPILAMADI")
+                    salon.bakim_gerekli_aletler.remove(alet)
+                else :
+                    salon.butce-=alet.bakim_maliyeti
+                    
+                    salon.bakim_gerekli_aletler.remove(alet)
+                    alet.son_bakim_tarihi=time.time()
+                    alet.bakim_gerekli=False
 
 
 
@@ -94,11 +104,36 @@ class veznedar(kisi):
 
             if (alet.tamir_gerekli):
                 print(alet.isim," aletinin tamir talebi ilgili ekiplere otomatik olarak iletilmistir")
-                salon.butce-=alet.tamir_maliyeti
-                salon.tamir_gerekli_aletler.remove(alet)
-                alet.son_bakim_tarihi=time.time()
-                alet.tamir_gerekli=False
+                if(salon.butce < alet.tamir_maliyeti) :
+                    print(alet.isim, "ALETİ ICIN BUTCE YETERSIZ, TAMİR YAPILAMADI")
+                    salon.tamir_gerekli_aletler.remove(alet)
+                else :                
+                    salon.butce-=alet.tamir_maliyeti
+                    salon.tamir_gerekli_aletler.remove(alet)
+                    alet.son_bakim_tarihi=time.time()
+                    alet.tamir_gerekli=False
 
+
+
+    def saglikRaporSorgula(self, salon):
+        silinecek_uyeler = []
+        for uye in salon.uyeler:
+        
+
+            print("saglik raporlari: ",  time.asctime( time.localtime(uye.saglik_raporlari[-1].alinma_tarihi )))
+            if(time.time() - uye.saglik_raporlari[-1].alinma_tarihi > 20) : # 6 ay = 15 778 463 saniye
+
+                print("SAglik raporu sure asimi!!! Yeni saglik raporu gerekli")
+
+                saglik_raporu = input("Aile Hekiminizden yeni saglik raporu almak icin e'ye basiniz, \nalmak istemiyorsunuz e disinda bir tusa basin ")
+    
+                if( saglik_raporu == 'e') :
+                    print("Yeni Saglik Raporu Alindi")
+                    uye.saglikRaporuEkle()
+                else :
+                    silinecek_uyeler.append(uye)
+                return silinecek_uyeler
+                        
 
 
 

@@ -1,6 +1,7 @@
 from classes.alet import alet
 from classes.kisisel_koc import kisiel_koc
 from classes.abone import abone
+import time
 
 
 class spor_salonu(object) :
@@ -22,7 +23,9 @@ class spor_salonu(object) :
         for i in self.paketler:
             print("Paketler: ", i.tur)
         for i in self.uyeler:
-            print("Uyeler: ", i.isim)
+            print("UYE: ", i.isim, "PAKETİ: ",i.abonelik_paketi.tur, "BASLANGIC TARİHİ: ", time.asctime( time.localtime(i.abonelik_baslangic_tarihi)),"ABONELİK SÜRESİ (AY): ", i.ay_sayisi)
+        for i in self.aletler:
+            print("ALETLER: ", i.isim)
 
     def uyeKaydet(self,abone):  
         self.uyeler.append(abone)

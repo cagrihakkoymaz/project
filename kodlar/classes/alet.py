@@ -26,7 +26,7 @@ class alet(object) :
             
     
     def tamirGoster(self):
-        if(time.time() - self.son_bakim_tarihi > 90000000000 * 2) : # 12 ay = 2 * 15 778 463 saniye
+        if(time.time() - self.son_bakim_tarihi > 10 * 2) : # 12 ay = 2 * 15 778 463 saniye
             self.tamir_gerekli = True
 
     def salonaEkle(self,salon):

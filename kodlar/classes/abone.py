@@ -33,7 +33,7 @@ class abone(kisi):  # uyelik turunu iptal ettim, bunun yerine kart ekledim
 
 
     def saglikRaporuEkle(self):
-        alinma_tarihi = datetime.datetime.now()
+        alinma_tarihi = time.time()
         yeni_rapor = saglik_raporu(alinma_tarihi)
         self.saglik_raporlari.append(yeni_rapor)
 

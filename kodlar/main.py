@@ -119,7 +119,9 @@ soyisim= input("Salon yoneticisin soyismini giriniz ")
 salon_yoneticisi_obj = salon_yoneticisi(isim, soyisim)
 """
 
-spor_salonu_obj = spor_salonu("Alperen",1000)
+start_time = time.time()
+
+spor_salonu_obj = spor_salonu("Alperen",10000)
 salon_yoneticisi_obj = salon_yoneticisi("enes","dilsiz")
 veznedar = veznedar()
 
@@ -127,9 +129,45 @@ abonelik_paketleri("standart",500,5, spor_salonu_obj)
 abonelik_paketleri("baslangic",300,3, spor_salonu_obj)
 abonelik_paketleri("premium",1000,7, spor_salonu_obj)
 
+alet("dumble",time.time()-432000,100,1000, spor_salonu_obj)
+alet("halter",time.time()-86400,1000,100000, spor_salonu_obj )
+alet("kosu_bandi",time.time(),10,20, spor_salonu_obj)
+
+
 
 while True:
+    print("""*******************
 
+    FIT AND HIT
+
+    İşlemler ;
+
+    1. SPOR SALONU KAYDET
+
+    2.SALON YONETICISI KAYDET
+
+    3. YENİ PAKET TANIMLA
+
+    4. SALON BİLGİLERİNİ GOSTER
+
+    5. ALET KAYDET
+
+    6. UYE KAYDET
+
+    7. ALET DURUM SORGULA
+
+    8.GUNLUK KASAYI SALON_KASAYA AKTAR
+
+    9.SALON KASAYI GUNLUK KASAYA AKTAR
+
+    10. GUNLUK KASA TUTARI
+
+    11. SALON KASA TUTARI
+
+    12. SAGLIK RAPORU SORGULA
+
+    Çıkmak için 'q' ya basın.
+    *******************""")
     işlem = input("İşlemi Seçiniz:")
     if (işlem == "q"):
         print("Programdan Çıkılıyor...")
@@ -161,7 +199,7 @@ while True:
 
 
         isim= input("Ekelemek istediginiz spor aletinin ismini giriniz ")
-        tarih= input("Aletin son bakim tarihini giriniz ")
+        tarih= time.time()
         bakim_maliyeti= input("Aletin bakim maliyetini sayi olarak giriniz")
         tamir_maliyeti= input("Aletin tamir maliyetini sayi olarak giriniz")
         try:
@@ -170,9 +208,6 @@ while True:
             tamir_maliyeti=int(tamir_maliyeti)
             yeni_alet = alet(isim, tarih, bakim_maliyeti, tamir_maliyeti,spor_salonu_obj)
             
-            
-
-
         except:
 
             print("Lutfen tarih,bakim_maliyeti,tamir_maliyetini sayi olarak giris yapiniz")
@@ -188,13 +223,15 @@ while True:
         
         try:
             uye_butce=int(uye_butce)
+            yeni_abone = abone(isim,soyisim,uye_butce)
+            
 
         except:
 
             print("Lutfen uye butcesini sayi olarak giris yapiniz")
 
-        yeni_abone = abone(isim,soyisim,uye_butce)
-        saglik_raporu = input("Aile Hekiminizden aldiginiz saglik raporunu teslim etmek icin e'ye basiniz")
+        
+        saglik_raporu = input("Aile Hekiminizden aldiginiz saglik raporunu teslim etmek icin e'ye basiniz ")
         
         if( saglik_raporu == 'e') :
             yeni_abone.saglikRaporuEkle()
@@ -203,7 +240,37 @@ while True:
     
     
     elif (işlem == "7"):
-        kumanda.sesi_azalt_artir()
+        
+        veznedar.aletDurumSorgula(spor_salonu_obj)
+
+
+
+
+
+    elif (işlem == "8"):
+        spor_salonu_obj.butce += veznedar.gunluk_kasa
+        veznedar.gunluk_kasa = 0
+
+    elif (işlem == "9"):
+        veznedar.gunluk_kasa += spor_salonu_obj.butce 
+        spor_salonu_obj.butce = 0
+
+    elif (işlem == "10"):
+        print("Günlük Kasa Tutari: ", veznedar.gunluk_kasa)
+    
+    elif (işlem == "11"):
+        print("Spor Salonu Kasa Tutari: ", spor_salonu_obj.butce)
+    elif (işlem == "12"):
+        sil=veznedar.saglikRaporSorgula(spor_salonu_obj)
+        if not sil==None:
+            for uye in sil:
+                print(uye.isim +"  "+uye.soyisim+"  kaydi siliniyor")
+                
+                spor_salonu_obj.uyeler.remove(uye)
+
+        
+
+
     else:
         print("Geçersiz İşlem...")
 
