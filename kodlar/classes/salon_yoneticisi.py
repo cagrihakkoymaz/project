@@ -5,4 +5,6 @@ class salon_yoneticisi(kisi):
         kisi.__init__(self,isim,soyisim)
 
         print( self.isim,self.soyisim,"salon yoneticisi olarak atandi")
+    def salonButceGoruntule(self,salon):
+        print("Salonun kasasında bulunan tutar : ",salon.butce)
 
